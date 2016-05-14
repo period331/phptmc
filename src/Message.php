@@ -62,6 +62,24 @@ class Message
         }
     }
 
+    public function toArray()
+    {
+        return array(
+            "protocolVersion" => $this->protocolVersion,
+            "messageType" => $this->messageType,
+            "statusCode" => $this->statusCode,
+            "statusPhrase" => $this->statusPhrase,
+            "flag" => $this->flag,
+            "token" => $this->token,
+            "content" => $this->content
+        );
+    }
+
+    public function toString()
+    {
+        return json_encode($this->toArray());
+    }
+    
     /**
      * @return int
      */

@@ -27,35 +27,35 @@ class Reader
 
         $headerTypeHex = substr($stream, $offset, 4);
         $offset += 4;
-        $header_type = unpack('v', hex2bin($headerTypeHex))[1];
+        $headerType = unpack('v', hex2bin($headerTypeHex))[1];
 
-        while ($header_type != HeaderType::END_OF_HEADERS) {
-            if ($header_type == HeaderType::TOKEN) {
+        while ($headerType != HeaderType::END_OF_HEADERS) {
+            if ($headerType == HeaderType::TOKEN) {
                 list($token, $offset) = static::readCountedStr($stream, $offset);
                 $message->setToken($token);
                 
-            } elseif ($header_type === HeaderType::CUSTOM) {
+            } elseif ($headerType === HeaderType::CUSTOM) {
                 list($key, $offset) = static::readCountedStr($stream, $offset);
                 list($value, $offset) = static::readCustomValue($stream, $offset);
                 $message->updateContent(array($key => $value));
                 
-            } elseif ($header_type === HeaderType::STATUS_CODE) {
+            } elseif ($headerType === HeaderType::STATUS_CODE) {
                 $statusCodeHex = substr($stream, $offset, 8);
                 $offset += 8;
-                $message->setStatusCode(unpack('I', hex2bin($statusCodeHex))[1]);
+                $message->setStatusCode(unpack('V', hex2bin($statusCodeHex))[1]);
                 
-            } elseif ($header_type === HeaderType::STATUS_PHRASE) {
+            } elseif ($headerType === HeaderType::STATUS_PHRASE) {
                 list($statusPhrase, $offset) = static::readCountedStr($stream, $offset);
                 $message->setStatusPhrase($statusPhrase);
-            } elseif ($header_type === HeaderType::FLAG) {
+            } elseif ($headerType === HeaderType::FLAG) {
                 $flagHex = substr($stream, $offset, 8);
                 $offset += 8;
-                $message->setFlag(unpack('I', hex2bin($flagHex))[1]);
+                $message->setFlag(unpack('V', hex2bin($flagHex))[1]);
             }
 
             $headerTypeHex = substr($stream, $offset, 4);
             $offset += 4;
-            $header_type = unpack('v', hex2bin($headerTypeHex))[1];
+            $headerType = unpack('v', hex2bin($headerTypeHex))[1];
         }
         
         return $message;
@@ -65,7 +65,7 @@ class Reader
     {
         $length_hex = substr($stream, $offset, 8);
         $offset += 8;
-        $length = unpack('I', hex2bin($length_hex))[1];
+        $length = unpack('V', hex2bin($length_hex))[1];
 
         if ($length > 0) {
             $str_hex = substr($stream, $offset, $length * 2);
