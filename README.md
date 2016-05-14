@@ -1,14 +1,13 @@
 ## PHP TMC
 
-> 淘宝TMC消息服务框架
-> 仅支持PHP5.6及以上版本
+> 淘宝TMC消息服务框架 仅支持PHP5.6及以上版本
 
 ### 功能
 
-[x] 数据解包
-[x] 数据封包
-[]  简单版websocket client
-[]  基于swoole 的websocket client
+* [x] 数据解包
+* [x] 数据封包
+* [ ]  简单版websocket client
+* [ ]  基于swoole 的websocket client
 
 ### 使用
 
