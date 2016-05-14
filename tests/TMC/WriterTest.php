@@ -6,7 +6,7 @@ namespace TMC;
  * Class TestWriter
  * @package TMC
  */
-class TestWriter
+class WriterTest
 {
     
 }
