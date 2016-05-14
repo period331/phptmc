@@ -1,0 +1,25 @@
+{
+  "name": "baocaixiong/phptmc",
+  "description": "淘宝开放平台 消息服务TMC, PHP版本非官方SDK",
+  "minimum-stability": "stable",
+  "homepage": "https://github.com/baocaixiong/phptmc",
+  "keywords": [
+    "taobao",
+    "tmc",
+    "php"
+  ],
+  "license": "MIT",
+  "version": "0.1.0",
+  "type": "library",
+  "authors": [
+    {
+      "name": "baocaixiong",
+      "email": "baocaixiong@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-0": {
+      "TMC\\": "src/"
+    }
+  },
+}
