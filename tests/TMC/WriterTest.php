@@ -26,6 +26,6 @@ class WriterTest extends \PHPUnit_Framework_TestCase
     "outtime": 1395035520946
   }', true);
         $m = new Message(2, 2, null, null, null, 'd2c3e864-cf6d-4888-8fb3-5bb95719b01b', $content);
-        Writer::write($m);
+//        Writer::write($m);
     }
 }

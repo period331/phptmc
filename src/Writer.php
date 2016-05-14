@@ -13,6 +13,7 @@ class Writer
 {
     /**
      * @param Message $message
+     * @return string
      */
     public static function write(Message $message)
     {
@@ -51,7 +52,7 @@ class Writer
 
         $buffer->int16(HeaderType::END_OF_HEADERS);
 
-        var_dump($buffer->getBuffer());
+        return $buffer->getBuffer();
     }
 
     /**
@@ -129,8 +130,17 @@ class WriteBuffer
     /**
      * @return string
      */
-    public function getBuffer()
+    public function getHexBuffer()
     {
         return $this->buffer;
     }
+
+    /**
+     * @return string
+     */
+    public function getBuffer()
+    {
+        return hex2bin($this->buffer);
+    }
+    
 }
