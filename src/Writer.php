@@ -79,8 +79,13 @@ class Writer
                 $buffer->byte(ValueType::INT32);
                 $buffer->int32($value);
             } elseif ($value < UNInteger::INT64) {
-                $buffer->byte(ValueType::INT64);
-                $buffer->int64($value);
+                if (PHP_VERSION_ID >= 50600) {
+                    $buffer->byte(ValueType::INT64);
+                    $buffer->int64($value);
+                } else {
+                    $buffer->byte(ValueType::COUNTED_STRING);
+                    $buffer->string((string) $value);
+                }
             } else {
                 $buffer->byte(ValueType::COUNTED_STRING);
                 $buffer->string($value);
