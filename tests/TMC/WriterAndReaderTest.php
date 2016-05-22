@@ -13,7 +13,8 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $stream = '020205002400000064326333653836342d636636642d343838382d386662332d356262393537313962303162010005000000746f706963011a00000074616f62616f5f74726164655f54726164654275796572506179010006000000757365726964057f43f92a000000000100060000005f5f6b696e6402030100090000007075626c697368657201080000003132343937393134010007000000726574726965640201010007000000636f6e74656e74019f0000007b2262757965725f6e69636b223a22e88c89e889b2e5aeb9e9a29c222c227061796d656e74223a22313739392e3030222c226f6964223a3537313039303136313439333432382c22746964223a3537313039303136313439333432382c2274797065223a2267756172616e7465655f7472616465222c2273656c6c65725f6e69636b223a22687463e585b4e995bfe4bfa1e8bebee4b893e58d96e5ba97227d010002000000696405070099e4e0ac951d010007000000646174615f696405b4e5354a6707020001000400000074696d650666ac4cc4440100000100040000006e69636b0118000000687463e585b4e995bfe4bfa1e8bebee4b893e58d96e5ba9701000600000064617461696405b4e5354a67070200010009000000626f726e5f74696d650566ac4cc4440100000100070000006f757474696d6506b2bf98ce440100000000';
         
         $message = Reader::read($stream);
-//        var_dump($message);
+        $this->assertEquals('d2c3e864-cf6d-4888-8fb3-5bb95719b01b', $message->getToken());
+        $this->assertEquals('taobao_trade_TradeBuyerPay', $message->getContent()['topic']);
     }
 
     public function testReader2()
@@ -23,5 +24,31 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $message = Reader::read($stream);
         $this->assertEquals('d2c3e864-cf6d-4888-8fb3-5bb95719b01b', $message->getToken());
         $this->assertEquals('taobao_trade_TradeBuyerPay', $message->getContent()['topic']);
+    }
+
+    public function testWrite1()
+    {
+        $content = json_decode('{
+    "topic": "taobao_trade_TradeBuyerPay",
+    "userid": 720978815,
+    "__kind": 3,
+    "publisher": "12497914",
+    "retried": 1,
+    "content": "{\"buyer_nick\":\"茉色容颜\",\"payment\":\"1799.00\",\"oid\":571090161493428,\"tid\":571090161493428,\"type\":\"guarantee_trade\",\"seller_nick\":\"htc兴长信达专卖店\"}",
+    "id": 2131800080537682000,
+    "data_id": 571090161493428,
+    "time": 1394862763110,
+    "nick": "htc兴长信达专卖店",
+    "dataid": 571090161493428,
+    "born_time": 1394862763110,
+    "outtime": 1395035520946
+  }', true);
+        $m = new Message(2, 2, null, null, null, 'd2c3e864-cf6d-4888-8fb3-5bb95719b01b', $content);
+        Writer::write($m);
+    }
+
+    public function testWriteCustomStringValue()
+    {
+
     }
 }
